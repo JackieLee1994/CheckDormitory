@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.json.JSONArray;
 
 import java.util.List;
-
 /**
  * Created by 99206 on 2017/4/9.
  */
@@ -35,6 +34,7 @@ public class UserController {
             jo.put("userPassword", a.getPassword());
             json.put(jo);
         }
+        System.out.println("get_user");
         return json.toString();
     }
     @RequestMapping(value="/user_input")
