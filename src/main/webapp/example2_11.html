@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <script src="js/jquery-3.2.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btn').click(function () {
+                $('#txtDiv').load("doc.txt");
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="txtDiv"><h2>doc.txt:</h2></div>
+<button type="button" id="btn">ajax读取服务器内容</button>
+</body>
+</html>
