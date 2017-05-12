@@ -167,6 +167,16 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
 
 
         <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
@@ -182,11 +192,15 @@
             <artifactId>json</artifactId>
             <version>20160810</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.31</version>
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>maven-springmvc</finalName>
+        <finalName>CheckDormitory</finalName>
         <resources>
             <!--表示把java目录下的有关xml文件,properties文件编译/打包的时候放在resource目录下-->
             <resource>

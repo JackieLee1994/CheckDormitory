@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>物业管理之维修管理管理系统</title>
+<title>校园宿舍查寝系统</title>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -40,7 +40,7 @@
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="./">物业管理之维修管理管理系统</a>
+				</a> <a class="brand" href="./">校园宿舍查寝系统</a>
 
 
 			</div>
@@ -79,13 +79,14 @@
 						<input type="password" class="" id="password" name="password"/>
 					</div>
 				</div>
+				<p style="color: red">${error}</p>
 			</fieldset>
 
-			<div id="remember-me" class="pull-left">
+			<%--<div id="remember-me" class="pull-left">
 				<input type="checkbox" name="remember" id="remember"/> <label
 					id="remember-label" for="remember">记住我</label>
 			</div>
-
+--%>
 			<div class="pull-right">
 				<button type="submit" class="btn btn-warning btn-large">
 					立即登录

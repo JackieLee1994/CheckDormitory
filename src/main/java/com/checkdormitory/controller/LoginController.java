@@ -2,11 +2,13 @@ package com.checkdormitory.controller;
 
 import com.checkdormitory.entity.User;
 import com.checkdormitory.service.UserService;
+import com.checkdormitory.utils.CharacterEncode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by lwxzbh on 2017/4/18.
@@ -17,12 +19,26 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping("/login")
-    public String login(User user, Model model){
-        System.out.println(user.getUsername()+" "+user.getPassword());
-        User user2=userService.find(user.getUsername(),user.getPassword());
-        if (user2 !=null){
-            model.addAttribute(user);
+    public String login(User user, Model model,HttpSession session) throws Exception{
+        String username = CharacterEncode.toUTF8(user.getUsername());
+        System.out.println(username+" "+user.getPassword());
+        User userRe=userService.find(username,user.getPassword());
+        if (userRe !=null){
+            session.setAttribute("username",userRe.getUsername());
+            session.setAttribute("type",userRe.getTypeId());
+            model.addAttribute(userRe);
+            int type = userRe.getTypeId();
+            if (type == 1){
+                return "redirect:/user/list";
+            }else if (type==2)
+                return "/repair/repairlist";
+            else {
+                model.addAttribute("error","对不起，您无使用系统权限！");
+                return "login";
+            }
+        }else{
+            model.addAttribute("error","用户名或密码错误!");
+            return "login";
         }
-        return "welcomeUser";
     }
 }

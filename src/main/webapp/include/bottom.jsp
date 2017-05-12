@@ -4,7 +4,7 @@
 
 		<div class="container">
 			<hr />
-			<p align="center">&copy; 2016 物业管理之维修管理管理系统</p>
+			<p align="center">&copy; 2017 校园宿舍查寝系统</p>
 		</div>
 		<!-- /container -->
 

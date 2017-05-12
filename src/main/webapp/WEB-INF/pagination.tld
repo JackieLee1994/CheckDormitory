@@ -16,13 +16,13 @@
         add pagination toolbar.
     </description>
     <name>page</name>
-    <tag-class>com.www.util.Pagination</tag-class>
+    <tag-class>com.checkdormitory.utils.Pagination</tag-class>
     <body-content>empty</body-content>
     <attribute>
         <name>parameter</name>
         <required>true</required>
         <rtexprvalue>true</rtexprvalue>
-		<type>com.www.util.Page</type>
+		<type>com.checkdormitory.utils.Page</type>
     </attribute>
   </tag>
 </taglib>

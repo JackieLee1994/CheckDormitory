@@ -9,14 +9,11 @@
 			<a class="btn btn-navbar" data-toggle="collapse"
 				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 				class="icon-bar"></span> <span class="icon-bar"></span>
-			</a> <a class="brand" href="./">物业管理之维修管理管理系统</a>
+			</a> <a class="brand" href="./">校园宿舍查寝系统</a>
 
 			<div class="nav-collapse">
 
 				<ul class="nav pull-right">
-					<li>
-						<!-- <a href="#"><span class="badge badge-warning">7</span></a> -->
-					</li>
 
 					<li class="divider-vertical"></li>
 

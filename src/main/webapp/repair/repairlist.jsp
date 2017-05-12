@@ -34,9 +34,8 @@
 	rel="stylesheet" />
 
 <link href="${pageContext.request.contextPath}/css/pages/dashboard.css"
-	<script src="${pageContext.request.contextPath}/jquery.fly.min.js"></script>
 	rel="stylesheet" />
-
+	<script src="${pageContext.request.contextPath}/jquery.fly.min.js"></script>
 <style type="text/css">
 </style>
 

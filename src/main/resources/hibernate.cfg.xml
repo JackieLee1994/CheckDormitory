@@ -6,7 +6,6 @@
   <session-factory>
       <!--配置数据库的驱动程序，Hibernate在连接数据库时，需要用到数据库的驱动程序-->
       <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-      <!--设置数据库的连接url:jdbc:mysql://localhost/hibernate,其中localhost表示mysql服务器名称，此处为本机，    hibernate是数据库名-->
       <property name="hibernate.connection.url">jdbc:mysql://120.27.44.116:3306/CheckDormitory</property>
       <!--连接数据库是用户名-->
       <property name="connection.username">root</property>
@@ -35,5 +34,6 @@
       <mapping class="com.checkdormitory.entity.UserEntity2"/>
       <mapping class="com.checkdormitory.entity.StudentInfoEntity"/>
       <mapping class="com.checkdormitory.entity.User"/>
+      <mapping class="com.checkdormitory.entity.UserType"/>
   </session-factory>
 </hibernate-configuration>
