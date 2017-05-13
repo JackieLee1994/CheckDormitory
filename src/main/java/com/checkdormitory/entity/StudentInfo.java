@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "student_info", schema = "CheckDormitory")
-public class StudentInfoEntity {
+public class StudentInfo {
     private int stuNumber;
     private String name;
     private String headImg;
@@ -135,7 +135,7 @@ public class StudentInfoEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StudentInfoEntity that = (StudentInfoEntity) o;
+        StudentInfo that = (StudentInfo) o;
 
         if (stuNumber != that.stuNumber) return false;
         if (bedNumber != that.bedNumber) return false;

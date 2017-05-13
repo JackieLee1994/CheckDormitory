@@ -32,8 +32,10 @@
       <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
       <!--指定映射文件为“hibernate/ch1/UserInfo.hbm.xml”-->
       <mapping class="com.checkdormitory.entity.UserEntity2"/>
-      <mapping class="com.checkdormitory.entity.StudentInfoEntity"/>
+      <mapping class="com.checkdormitory.entity.StudentInfo"/>
       <mapping class="com.checkdormitory.entity.User"/>
       <mapping class="com.checkdormitory.entity.UserType"/>
+      <mapping class="com.checkdormitory.entity.Checker"/>
+      <mapping class="com.checkdormitory.entity.CheckResult"/>
   </session-factory>
 </hibernate-configuration>
