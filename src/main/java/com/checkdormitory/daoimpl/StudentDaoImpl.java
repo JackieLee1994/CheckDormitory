@@ -3,6 +3,7 @@ package com.checkdormitory.daoimpl;
 import com.checkdormitory.dao.StudentDao;
 import com.checkdormitory.entity.CheckResult;
 import com.checkdormitory.entity.Checker;
+import com.checkdormitory.entity.StudentInfo;
 import com.checkdormitory.utils.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -33,11 +34,33 @@ public class StudentDaoImpl implements StudentDao {
                 hql += " or dormitoryNumber like '_"+floor+"__'";
             i=2;
         }
+        System.out.println(hql);
         Session session = HibernateUtil.getSession();
         Query query = session.createQuery(hql);
-        return query.list();
+        List list = query.list();
+        return list;
     }
-
+    private List<Object> findStudentBySQL(String dormitoryBuilding, String scope){
+        //遍历scop,获取查寝范围
+        JSONObject jsonObject = new JSONObject(scope);
+        String sql = "select * from student_info where dormitory_building= '"+dormitoryBuilding+"'";
+        Iterator iterator=jsonObject.keys();
+        int i=0;
+        while(iterator.hasNext()){
+            String key = (String) iterator.next();
+            String floor = jsonObject.getString(key);
+            if(i == 0)
+                sql += " and dormitory_number like '_"+floor+"__'";
+            else
+                sql += " or dormitory_number like '_"+floor+"__'";
+            i=2;
+        }
+        System.out.println(sql);
+        Session session = HibernateUtil.getSession();
+        List list = session.createSQLQuery(sql).addEntity(StudentInfo.class).list();;
+        HibernateUtil.closeSession();
+        return list;
+    }
     public Checker getScope(String workId) {
         Session session = HibernateUtil.getSession();
         Query query = session.createQuery("from Checker where id=?").setString(0,workId);

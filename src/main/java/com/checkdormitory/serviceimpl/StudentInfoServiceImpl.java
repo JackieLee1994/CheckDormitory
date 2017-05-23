@@ -4,7 +4,6 @@ import com.checkdormitory.dao.StudentDao;
 import com.checkdormitory.entity.CheckResult;
 import com.checkdormitory.entity.Checker;
 import com.checkdormitory.service.StudentInfoService;
-import org.json.JSONArray;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

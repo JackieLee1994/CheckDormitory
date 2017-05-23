@@ -2,11 +2,11 @@ package com.checkdormitory.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.checkdormitory.entity.Person;
-import com.checkdormitory.entity.UserType;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import com.checkdormitory.entity.UserEntity2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +25,8 @@ import java.util.Map;
  * Created by lwxzbh on 2017/5/4.
  */
 @Controller
-//@RequestMapping(value = "/hello")
 public class TestController {
     private Logger logger = LoggerFactory.getLogger(TestController.class);
-    //@RequestBody 将json对象转成java对象
-    //@ResponseBody 表示返回的是json对象
     @RequestMapping("/JsonSource")
     @ResponseBody
     public Map<String, Object> jsonSource(@RequestBody Person person){
@@ -37,20 +34,27 @@ public class TestController {
         map.put("userType","管理员");
         return map;
     }
+    //@RequestBody 将json对象转成java对象
+    //@ResponseBody 表示返回的是json对象
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> addUser(@RequestBody Person person) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("name",person.getUsername());
         System.out.println(person.getUsername());
+        System.out.println(person.getPassword());
         return map;
     }
-    @RequestMapping("/JsonSource2")
-    @ResponseBody
-    public Person jsonSource2(@RequestBody Person person){
-        person.setUsername(person.getUsername()+"_change");
-        person.setPassword(person.getPassword()+"_change");
-        return person;
+    @RequestMapping(value = "/object")
+    public String mappingObject(Person person, UserEntity2 u, Model model) throws Exception{
+        //转码
+        String username = person.getUsername();
+        username = new String(username.getBytes("iso8859-1"),"utf-8");
+        person.setUsername(username);
+        model.addAttribute("person",person);
+        model.addAttribute("u",u);
+        System.out.println(u.getId());
+        return "/test/objectDisplay";
     }
     @RequestMapping(value = "/ReturnJson")
     @ResponseBody

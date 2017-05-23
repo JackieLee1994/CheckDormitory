@@ -11,9 +11,9 @@ import java.util.List;
  * Created by 99206 on 2017/4/10.
  */
 public class UserDaoTest {
-    public List<UserEntity2> query() {
+    public List<Object> query() {
         Session session = HibernateUtil.getSession();
-        List<UserEntity2> list =
+        List<Object> list =
                 session.createSQLQuery("select * from user").addEntity(UserEntity2.class).list();;
         HibernateUtil.closeSession();
         /*try {

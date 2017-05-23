@@ -24,8 +24,7 @@ public class HibernateUtil
         try
         {
             // 采用默认的hibernate.cfg.xml来启动一个Configuration的实例
-            Configuration cfg = new Configuration()
-                    .configure();
+            Configuration cfg = new Configuration().configure();
             // 以Configuration实例来创建SessionFactory实例
             sessionFactory = cfg.buildSessionFactory();
         }

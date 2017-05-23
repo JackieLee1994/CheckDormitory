@@ -17,9 +17,11 @@
 
 					<li class="divider-vertical"></li>
 
-					<li class="dropdown"><a data-toggle="dropdown"
-						class="dropdown-toggle " href="#"> 当前用户：${sessionScope.username } <b class="caret"></b>
-					</a>
+					<%--<li class="dropdown">
+						<a data-toggle="dropdown" class="dropdown-toggle " href="#">
+							当前用户：${sessionScope.username }
+							<b class="caret"></b>
+						</a>
 
 						<ul class="dropdown-menu">
 							<li><a href="./account.html"><i class="icon-user"></i>
@@ -31,7 +33,8 @@
 							<li class="divider"></li>
 
 							<li><a href="./"><i class="icon-off"></i> 安全退出</a></li>
-						</ul></li>
+						</ul>
+					</li>--%>
 				</ul>
 
 			</div>

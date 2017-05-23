@@ -8,8 +8,17 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+
+
     <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
+
+
+    <script src="${pageContext.request.contextPath}/bootstrap20160104/lib/bootstrap-select.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap20160104/lib/bootstrap-select.css">
+    <script src="${pageContext.request.contextPath}/bootstrap20160104/lib/bootstrap.min.js"></script>
+
     <link href="${pageContext.request.contextPath}/css/bootstrap-responsive.min.css" rel="stylesheet"/>
 
 
@@ -39,8 +48,9 @@
         var obj = document.getElementById("type"); //定位id
         var index = obj.selectedIndex; // 选中索引
         var text = obj.options[index].text; // 选中文本
+        var html = "";
         if (text == "辅导员") {
-            var html='<legend style="font-size: medium" id="legend">管理的班级</legend>';
+            html='<legend style="font-size: medium" id="legend">管理的班级</legend>';
             html+='<div class="control-group">'
                  +'<label class="control-label">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;院</label>'
                  +'<div class="controls">'
@@ -62,12 +72,19 @@
             html2+='</select></div></div>';*/
             $('#power').html(html);
         }else if (text == "宿舍管理员") {
+            html='<legend style="font-size: medium" id="legend">查寝范围</legend>';
 
+            $('#power').html(html);
+        }else if(text == "系统管理员"){
+            html="";
+            $('#power').html(html);
         }
     }
 </script>
 <%@ include file="/include/top.jsp" %>
+
 <div id="content">
+
     <div class="container">
         <div class="row">
             <%@ include file="/include/left_admin.jsp" %>
@@ -103,9 +120,9 @@
                                                         <div class="controls">
                                                             <select class="input-medium " id="type" name="typeId"
                                                                     onchange="showNode()">
-                                                                <option value="3">宿舍管理员</option>
-                                                                <option value="2">辅导员</option>
                                                                 <option value="1">系统管理员</option>
+                                                                <option value="2">辅导员</option>
+                                                                <option value="3">宿舍管理员</option>
                                                             </select>
                                                         </div>
                                                         <!-- /controls -->
@@ -171,6 +188,7 @@
                                                 </div>
                                             </form>
                                         </div>
+
 
                                         <div class="tab-pane" id="2">
                                             <form id="edit-profile2" class="form-horizontal">

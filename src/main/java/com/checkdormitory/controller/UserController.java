@@ -87,13 +87,7 @@ public class UserController {
                                    @Validated User user) throws Exception {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-
-        System.out.println("进来没有");
-        System.out.println(user.getUsername());
-        System.out.println(id);
-
         User u = userService.load(id);
-
         u.setTypeId(user.getTypeId());
         u.setGender(user.getGender());
         u.setWorkId(user.getWorkId());

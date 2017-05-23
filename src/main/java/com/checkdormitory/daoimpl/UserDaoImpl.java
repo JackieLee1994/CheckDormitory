@@ -19,7 +19,7 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     public User find(String username, String password) {
         Session session = HibernateUtil.getSession();
-        System.out.println(username + " " + password);
+        System.out.println("UserDaoImpl-->"+username + " " + password);
         Query query =
                 session.createQuery("from  User  where username=? and password=?")
                         .setString(0, username)

@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by lwxzbh on 2017/5/12.
@@ -40,6 +38,7 @@ public class StudentsInfoController {
 
             CheckResult checkResult=new CheckResult();
             checkResult.setStudentNumber(obj.getString("studentNumber"));
+            /*obj.getString("date");*/
             Timestamp time = new Timestamp(dateTime);
             checkResult.setDate(time);
 
@@ -58,24 +57,36 @@ public class StudentsInfoController {
         String floor = jsonObject.get("floor").toString();
         //查询查寝范围内的学生信息
         List<Object> list = studentInfoService.findStudent(dormitoryBuilding,floor);
-        JSONArray jsonArray = new JSONArray();
+        JSONArray scope = new JSONArray();
+        //[{"dorm_ID":"[{"name":"","student_ID":""},{"name":"","student_ID":""}]"}]
+        Map<String,JSONArray> map = new HashMap<String,JSONArray>();
         for (Object obj:list){
             StudentInfo stu = (StudentInfo)obj;
-            JSONObject jsonStudentInfo = new JSONObject();
-            jsonStudentInfo.put("stuNumber",stu.getStuNumber());
-            jsonStudentInfo.put("name",stu.getName());
-            jsonStudentInfo.put("headImg",stu.getHeadImg());
-            jsonStudentInfo.put("tel",stu.getTel());
-            jsonStudentInfo.put("college",stu.getCollege());
-            jsonStudentInfo.put("major",stu.getMajor());
-            jsonStudentInfo.put("clazz",stu.getClazz());//班级
-            jsonStudentInfo.put("dormitoryBuilding",stu.getDormitoryBuilding());
-            jsonStudentInfo.put("dormitoryNumber",stu.getDormitoryNumber());
-            jsonStudentInfo.put("bedNumber",stu.getBedNumber());
-            jsonStudentInfo.put("noComingSum",stu.getNoComingSum());
-            jsonArray.put(jsonStudentInfo);
+            String dorm_ID = stu.getDormitoryNumber();
+
+            JSONObject aMember = new JSONObject();
+            aMember.put("name",stu.getName());
+            aMember.put("student_ID",stu.getStuNumber());
+            aMember.put("bed_ID",stu.getBedNumber());
+            aMember.put("class_Name",stu.getClazz());
+            aMember.put("college",stu.getCollege());
+            if(map.containsKey(dorm_ID)){
+                JSONArray aDorm = map.get(dorm_ID);
+                aDorm.put(aMember);
+                map.put(dorm_ID,aDorm);
+            }else{
+                JSONArray aDorm = new JSONArray();
+                aDorm.put(aMember);
+                map.put(dorm_ID,aDorm);
+            }
         }
-        return jsonArray.toString();
+        for (Map.Entry<String, JSONArray> entry : map.entrySet()) {
+            JSONObject aDorm = new JSONObject();
+            aDorm.put("dormitory_ID",entry.getKey());
+            aDorm.put("members",entry.getValue());
+            scope.put(aDorm);
+        }
+        return scope.toString();
     }
 
 
