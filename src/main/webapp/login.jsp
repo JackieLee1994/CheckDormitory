@@ -68,9 +68,9 @@
 			<form action="${pageContext.request.contextPath}/login" method="post">
 			<fieldset>
 				<div class="control-group">
-					<label class="control-label" for="username">用户账号</label>
+					<label class="control-label" for="username">用户工号</label>
 					<div class="controls">
-						<input type="text" class="" id="username" name="username"/>
+						<input type="text" class="" id="username" name="workId"/>
 					</div>
 				</div>
 				<div class="control-group">

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -37,12 +37,15 @@ public class StudentsInfoController {
             JSONObject obj=(JSONObject)iterator.next();
 
             CheckResult checkResult=new CheckResult();
-            checkResult.setStudentNumber(obj.getString("studentNumber"));
-            /*obj.getString("date");*/
-            Timestamp time = new Timestamp(dateTime);
-            checkResult.setDate(time);
+            checkResult.setStudentNumber(obj.getInt("student_ID"));
+            SimpleDateFormat formatter;
+            formatter = new SimpleDateFormat ("yyyy-MM-dd");
+            String ctime = formatter.format(dateTime);
+            checkResult.setDate(ctime);
 
             studentInfoService.saveCheckResult(checkResult);
+            //更新晚未归次数
+            studentInfoService.updateLateReturnSum(obj.getInt("student_ID"));
         }
         return "{\"code\":\"success\"}";
     }

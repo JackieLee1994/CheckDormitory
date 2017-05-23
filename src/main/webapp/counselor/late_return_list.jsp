@@ -53,7 +53,8 @@
                 <div class="widget widget-table">
                     <div class="widget-header">
                         <i class="icon-th-list"></i>
-                        <h3>晚未归名单</h3>
+                        <h3>最新晚未归名单（${date}）</h3>
+
                     </div>
 
                     <div class="widget-content">
@@ -67,7 +68,7 @@
                                     <th>班级</th>
                                     <th>寝室</th>
                                     <th>电话</th>
-                                    <th>晚归</th>
+                                    <th>晚归（次）</th>
                                     <%--<th>tel</th>--%>
                                     <%--<th>详细住址</th>--%>
                                     <th>操作</th>
@@ -78,27 +79,16 @@
                                 <c:forEach items="${list}" var="l" varStatus="num">
                                     <tr>
                                         <td>${num.index +1 }</td>
-                                        <td>${l.workId}</td>
-                                        <td>${l.username }</td>
-                                        <c:if test="${l.gender ==1}">
-                                            <td>男</td>
-                                        </c:if>
-                                        <c:if test="${l.gender ==0}">
-                                            <td>女</td>
-                                        </c:if>
-                                        <c:if test="${l.typeId==1}">
-                                            <td>系统管理员</td>
-                                        </c:if>
-                                        <c:if test="${l.typeId==2}">
-                                            <td>辅导员</td>
-                                        </c:if>
-                                        <c:if test="${l.typeId==3}">
-                                            <td>宿舍管理员</td>
-                                        </c:if>
+                                        <td>${l.stuNumber}</td>
+                                        <td>${l.name }</td>
+                                        <td>${l.clazz }</td>
+                                        <td>${l.dormitoryBuilding}${l.dormitoryNumber}</td>
+                                        <td>${l.tel}</td>
+                                        <td align="right">${l.noComingSum}</td>
                                         <!-- 操作 -->
                                         <td>
-                                            <a href="${l.id}/del">删除</a>
-                                            <a href="${l.id}/update">修改</a>
+                                            <a href="<%--${l.id}--%>/del">销名</a>
+                                            <a href="<%--${l.id}--%>/update">发短信</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

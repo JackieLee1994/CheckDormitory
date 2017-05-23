@@ -15,4 +15,6 @@ public interface StudentInfoService {
     Checker getScope(String workId);
 
     void saveCheckResult(CheckResult checkResult);
+
+    void updateLateReturnSum(int student_id);
 }

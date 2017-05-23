@@ -20,18 +20,19 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String login(User user, Model model,HttpSession session) throws Exception{
-        String username = CharacterEncode.toUTF8(user.getUsername());
-        System.out.println(username+" "+user.getPassword());
-        User userRe=userService.find(username,user.getPassword());
+        String workId = CharacterEncode.toUTF8(user.getWorkId());
+        System.out.println(workId+" "+user.getPassword());
+        User userRe=userService.find(workId,user.getPassword());
         if (userRe !=null){
             session.setAttribute("username",userRe.getUsername());
             session.setAttribute("type",userRe.getTypeId());
+            session.setAttribute("workId",userRe.getWorkId());
             model.addAttribute(userRe);
             int type = userRe.getTypeId();
             if (type == 1){
                 return "redirect:/user/list";
             }else if (type==2)
-                return "/repair/repairlist";
+                return "redirect:/dataStatistics/lateReturnList?workId="+userRe.getWorkId();
             else {
                 model.addAttribute("error","对不起，您无使用系统权限！");
                 return "login";

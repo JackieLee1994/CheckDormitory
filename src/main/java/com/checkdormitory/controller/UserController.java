@@ -1,8 +1,6 @@
 package com.checkdormitory.controller;
 
-import com.checkdormitory.dao.UserDaoTest;
 import com.checkdormitory.entity.Person;
-import com.checkdormitory.entity.PersonList;
 import com.checkdormitory.entity.User;
 import com.checkdormitory.entity.UserEntity2;
 import com.checkdormitory.service.UserService;
@@ -122,7 +120,7 @@ public class UserController {
         HttpUtil util = new HttpUtil(request, response);
         int startRow = util.parseInt(Pagination.START_ROW);
         Map<String, Object> map = new HashMap<String, Object>();
-        String sql = "from  User";
+        String sql = "from  User";/* as u where u.username in('王昭君','习大大') as u where u.username='王昭君'*/
         List<User> l = new ArrayList<User>();
         Page page = userService.findPageByHQL(sql, startRow, 6, null);
         if (page != null && page.getList() != null) {

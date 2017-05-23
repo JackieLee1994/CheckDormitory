@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
         Session session = HibernateUtil.getSession();
         System.out.println("UserDaoImpl-->"+username + " " + password);
         Query query =
-                session.createQuery("from  User  where username=? and password=?")
+                session.createQuery("from  User  where workId=? and password=?")
                         .setString(0, username)
                         .setString(1, password);
         User user = (User) query.uniqueResult();
@@ -111,6 +111,7 @@ public class UserDaoImpl implements UserDao {
         String hql = "select count(*) "
                 + QueryProcessor.removeFetchs(
                 QueryProcessor.removeSelect(QueryProcessor.removeOrders(queryString)));
+        System.out.println("getTotal:"+hql);
         Query query = HibernateUtil.getSession().createQuery(hql);
         if (params != null && params.length > 0) {
             for (int i = 0; i < params.length; i++) {

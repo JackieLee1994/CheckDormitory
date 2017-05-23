@@ -28,4 +28,8 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     public void saveCheckResult(CheckResult checkResult) {
         studentDao.saveCheckResult(checkResult);
     }
+
+    public void updateLateReturnSum(int student_id) {
+        studentDao.updateLateReturnSum(student_id);
+    }
 }

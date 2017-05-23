@@ -27,31 +27,32 @@
     </div>
 
     <hr/>
-    <!--  class="active"      将我的桌面    这些列表一直拉黑         -->
+    <!--  class="active"-->
     <ul id="main-nav" class="nav nav-tabs nav-stacked">
 
         <li>
-            <a href="${pageContext.request.contextPath}/user/list">
+            <a href="${pageContext.request.contextPath}/dataStatistics/lateReturnList?workId=${sessionScope.workId}">
                 <i class="icon-th-list"></i>
-                晚未归名单
+                最新晚未归名单
             </a>
         </li>
         <li>
             <a href="#">
-                <i class="glyphicon-list"></i>
-                晚未归历史记录
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="glyphicon-signal"></i>
+                <i class="icon-signal"></i>
                 晚未归历史走势
             </a>
         </li>
         <li>
             <a href="#">
-                <i class="glyphicon-ice-lolly"></i>
-                班级对比
+                <i class="icon-th-list"></i>
+                晚未归历史记录
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="icon-thumbs-up"></i>
+                晚未归班级对比
             </a>
         </li>
         <li><a href="${pageContext.request.contextPath}/user/PersonalCenter"> <i class="icon-user"></i> 个人中心
