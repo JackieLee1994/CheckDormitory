@@ -1,5 +1,6 @@
 package com.checkdormitory.service;
 
+import com.checkdormitory.entity.HistoryRecord;
 import com.checkdormitory.utils.Page;
 
 import java.util.List;
@@ -15,4 +16,8 @@ public interface DataStatisticsService {
     String getClassesOfCounselor(String workId);
 
     String getLatestDate(String hql);
+
+    Page findHistoryRecord(String hql, int startRow, int pageSize, Object[] params);
+
+    Page getCount(String countHql, int startRow, int pageSize, Object[] params);
 }

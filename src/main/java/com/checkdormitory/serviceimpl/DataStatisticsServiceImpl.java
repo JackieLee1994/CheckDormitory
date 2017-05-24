@@ -1,6 +1,7 @@
 package com.checkdormitory.serviceimpl;
 
 import com.checkdormitory.dao.DataStatisticsDao;
+import com.checkdormitory.entity.HistoryRecord;
 import com.checkdormitory.service.DataStatisticsService;
 import com.checkdormitory.utils.Page;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,13 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
 
     public String getLatestDate(String hql) {
         return dataStatisticsDao.getLatestDate(hql);
+    }
+
+    public Page findHistoryRecord(String hql, int startRow, int pageSize, Object[] params) {
+        return dataStatisticsDao.findHistoryRecord(hql,startRow,pageSize,params);
+    }
+
+    public Page getCount(String countHql, int startRow, int pageSize, Object[] params) {
+        return dataStatisticsDao.getCount(countHql,startRow,pageSize,params);
     }
 }

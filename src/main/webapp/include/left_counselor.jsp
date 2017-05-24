@@ -43,7 +43,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/dataStatistics/history_record?workId=${sessionScope.workId}">
                 <i class="icon-th-list"></i>
                 晚未归历史记录
             </a>

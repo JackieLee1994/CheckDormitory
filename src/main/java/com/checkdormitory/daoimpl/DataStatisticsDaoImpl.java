@@ -2,6 +2,7 @@ package com.checkdormitory.daoimpl;
 
 import com.checkdormitory.dao.DataStatisticsDao;
 import com.checkdormitory.entity.CounselorManageClasses;
+import com.checkdormitory.entity.HistoryRecord;
 import com.checkdormitory.utils.HibernateUtil;
 import com.checkdormitory.utils.Page;
 import com.checkdormitory.utils.QueryProcessor;
@@ -16,6 +17,20 @@ import java.util.List;
 @Repository
 public class DataStatisticsDaoImpl implements DataStatisticsDao {
     public Page findLateReturnPage(String hql, int startRow, int pageSize, Object[] params) {
+        Query query = HibernateUtil.getSession().createQuery("select CR.studentNumber,count (*) from CheckResult as CR,StudentInfo as SI where CR.studentNumber=SI.stuNumber group by CR.studentNumber");
+        List<Object[]> list = query.list();
+        return getOnePage(hql,startRow,pageSize,params);
+    }
+    public Page findHistoryRecord(String hql, int startRow, int pageSize, Object[] params) {
+
+        return getOnePage(hql,startRow,pageSize,params);
+    }
+
+    public Page getCount(String countHql, int startRow, int pageSize, Object[] params) {
+        return getOnePage(countHql,startRow,pageSize,params);
+    }
+
+    private Page getOnePage(String hql, int startRow, int pageSize, Object[] params){
         int total = this.getTotal(hql, params);
         List list = null;
         if (total > 0) {
@@ -32,6 +47,7 @@ public class DataStatisticsDaoImpl implements DataStatisticsDao {
         return new Page(list, startRow, pageSize, total);
     }
 
+
     public List findLateReturnStudentID(String queryStr) {
         Query query = HibernateUtil.getSession().createQuery(queryStr);
         List list = query.list();
@@ -40,7 +56,6 @@ public class DataStatisticsDaoImpl implements DataStatisticsDao {
     }
 
     public String getClassesOfCounselor(String workId) {
-        String hql = "from CounselorManageClasses as c where c.id=?";
         Query query = HibernateUtil.getSession().createQuery("from CounselorManageClasses as c where c.id=?");
         query.setInteger(0,Integer.parseInt(workId));
         CounselorManageClasses c = (CounselorManageClasses)query.uniqueResult();

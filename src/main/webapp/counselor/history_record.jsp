@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: lwxzbh
-  Date: 2017/5/23
-  Time: 9:58
+  Date: 2017/5/24
+  Time: 9:52
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>晚未归名单</title>
+    <title>晚未归历史记录</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -53,7 +53,7 @@
                 <div class="widget widget-table">
                     <div class="widget-header">
                         <i class="icon-th-list"></i>
-                        <h3>最新晚未归名单（${date}）</h3>
+                        <h3>晚未归记录</h3>
 
                     </div>
 
@@ -63,38 +63,28 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>日期</th>
                                     <th>学号</th>
                                     <th>姓名</th>
                                     <th>班级</th>
                                     <th>寝室</th>
-                                    <th>电话</th>
-                                    <th>晚归（次）</th>
-                                    <th>操作</th>
                                 </tr>
                                 </thead>
-
                                 <tbody>
                                 <c:forEach items="${list}" var="l" varStatus="num">
                                     <tr>
                                         <td>${num.index +1 }</td>
+                                        <td>${l.checkResult.date}</td>
                                         <td>${l.studentInfo.stuNumber}</td>
-                                        <td>${l.studentInfo.name }</td>
+                                        <td>${l.studentInfo.name}</td>
                                         <td>${l.studentInfo.clazz }</td>
                                         <td>${l.studentInfo.dormitoryBuilding}
                                                 ${l.studentInfo.dormitoryNumber}</td>
-                                        <td>${l.studentInfo.tel}</td>
-                                        <td align="right">${l.count}</td>
-                                        <!-- 操作 -->
-                                        <td>
-                                            <a href="<%--${l.id}--%>/del">销名</a>
-                                            <a href="<%--${l.id}--%>/update">发短信</a>
-                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
                             <div>
-
                             </div>
                         </form>
                     </div>
