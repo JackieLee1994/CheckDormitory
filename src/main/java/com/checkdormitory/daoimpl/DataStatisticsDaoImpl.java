@@ -1,12 +1,15 @@
 package com.checkdormitory.daoimpl;
 
 import com.checkdormitory.dao.DataStatisticsDao;
+import com.checkdormitory.entity.CheckResult;
 import com.checkdormitory.entity.CounselorManageClasses;
 import com.checkdormitory.entity.HistoryRecord;
 import com.checkdormitory.utils.HibernateUtil;
 import com.checkdormitory.utils.Page;
 import com.checkdormitory.utils.QueryProcessor;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,18 +22,31 @@ public class DataStatisticsDaoImpl implements DataStatisticsDao {
     public Page findLateReturnPage(String hql, int startRow, int pageSize, Object[] params) {
         Query query = HibernateUtil.getSession().createQuery("select CR.studentNumber,count (*) from CheckResult as CR,StudentInfo as SI where CR.studentNumber=SI.stuNumber group by CR.studentNumber");
         List<Object[]> list = query.list();
-        return getOnePage(hql,startRow,pageSize,params);
+        return getOnePage(hql, startRow, pageSize, params);
     }
+
     public Page findHistoryRecord(String hql, int startRow, int pageSize, Object[] params) {
 
-        return getOnePage(hql,startRow,pageSize,params);
+        return getOnePage(hql, startRow, pageSize, params);
     }
 
     public Page getCount(String countHql, int startRow, int pageSize, Object[] params) {
-        return getOnePage(countHql,startRow,pageSize,params);
+        return getOnePage(countHql, startRow, pageSize, params);
     }
 
-    private Page getOnePage(String hql, int startRow, int pageSize, Object[] params){
+    public void pinName(int student_id) {
+        CheckResult checkResult = this.load(student_id);
+        Session session = HibernateUtil.getSession();
+        Transaction tran = session.beginTransaction();
+        session.delete(checkResult);
+        tran.commit();
+    }
+
+    private CheckResult load(int id) {
+        return (CheckResult) HibernateUtil.getSession().load(CheckResult.class, (long) id);
+    }
+
+    private Page getOnePage(String hql, int startRow, int pageSize, Object[] params) {
         int total = this.getTotal(hql, params);
         List list = null;
         if (total > 0) {
@@ -57,14 +73,14 @@ public class DataStatisticsDaoImpl implements DataStatisticsDao {
 
     public String getClassesOfCounselor(String workId) {
         Query query = HibernateUtil.getSession().createQuery("from CounselorManageClasses as c where c.id=?");
-        query.setInteger(0,Integer.parseInt(workId));
-        CounselorManageClasses c = (CounselorManageClasses)query.uniqueResult();
+        query.setInteger(0, Integer.parseInt(workId));
+        CounselorManageClasses c = (CounselorManageClasses) query.uniqueResult();
         return c.getClasses();
     }
 
     public String getLatestDate(String hql) {
         Query query = HibernateUtil.getSession().createQuery(hql);
-        String latestDate = (String)query.uniqueResult();
+        String latestDate = (String) query.uniqueResult();
         return latestDate;
     }
 

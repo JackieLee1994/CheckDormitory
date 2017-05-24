@@ -40,4 +40,8 @@ public class DataStatisticsServiceImpl implements DataStatisticsService {
     public Page getCount(String countHql, int startRow, int pageSize, Object[] params) {
         return dataStatisticsDao.getCount(countHql,startRow,pageSize,params);
     }
+
+    public void pinName(int student_id) {
+        dataStatisticsDao.pinName(student_id);
+    }
 }

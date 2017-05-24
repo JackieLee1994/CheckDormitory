@@ -86,8 +86,24 @@
                                         <td align="right">${l.count}</td>
                                         <!-- 操作 -->
                                         <td>
-                                            <a href="<%--${l.id}--%>/del">销名</a>
-                                            <a href="<%--${l.id}--%>/update">发短信</a>
+                                            <a href="${pageContext.request.contextPath}/dataStatistics/student/${l.checkResult.id}/delete/${sessionScope.workId}">销名</a>
+                                            <script>
+                                                function sendMSG() {
+                                                    $.ajax( {
+                                                        type : 'post',
+                                                        url : '/CheckDormitory/dataStatistics/sendMsg',
+                                                        contentType:'application/json;charset=utf-8',
+                                                        data : '${l.studentInfo.tel}',
+                                                        success : function(data) {
+                                                            alert(data.res);
+                                                        },
+                                                        error : function(data) {
+                                                            alert("网络请求失败")
+                                                        }
+                                                    });
+                                                }
+                                            </script>
+                                            <a <%--onclick="sendMSG()"--%>>发短信</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

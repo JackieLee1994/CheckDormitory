@@ -20,4 +20,6 @@ public interface DataStatisticsDao {
     Page findHistoryRecord(String hql, int startRow, int pageSize, Object[] params);
 
     Page getCount(String countHql, int startRow, int pageSize, Object[] params);
+
+    void pinName(int student_id);
 }
