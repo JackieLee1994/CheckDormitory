@@ -51,6 +51,7 @@ public class UserController {
         int gender= Integer.parseInt(req.getParameter("gender"));
         String workId=req.getParameter("workId");
         String username=req.getParameter("username");
+        System.out.print("班级"+req.getParameter("selectedClasses"));
         //手动解决乱码问题
         username = new String(username.getBytes("iso8859-1"),"utf-8");
         String password=req.getParameter("password");

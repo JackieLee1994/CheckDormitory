@@ -2,17 +2,16 @@
 <html>
 <head>
     <title>jQuery bootstrap-select</title>
-    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="lib/bootstrap-select.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap-select.css">
     <!-- 3.0 -->
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
     <%-- <script src="lib/jquery-1.12.2.js"></script>
     <link href="lib/bootstrap.min.css" rel="stylesheet">
     <script src="lib/bootstrap.min.js"></script>--%>
 
-    <script type="text/javascript" src="lib/bootstrap-select.js"></script>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap-select.css">
+
 
 
 

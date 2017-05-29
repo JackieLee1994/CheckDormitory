@@ -83,7 +83,7 @@
                                         <td>${l.studentInfo.dormitoryBuilding}
                                                 ${l.studentInfo.dormitoryNumber}</td>
                                         <td>${l.studentInfo.tel}</td>
-                                        <td align="right">${l.count}</td>
+                                        <td align="right">${l.studentInfo.noComingSum}</td>
                                         <!-- 操作 -->
                                         <td>
                                             <a href="${pageContext.request.contextPath}/dataStatistics/student/${l.checkResult.id}/delete/${sessionScope.workId}">销名</a>

@@ -3,7 +3,6 @@ package com.checkdormitory.daoimpl;
 import com.checkdormitory.dao.DataStatisticsDao;
 import com.checkdormitory.entity.CheckResult;
 import com.checkdormitory.entity.CounselorManageClasses;
-import com.checkdormitory.entity.HistoryRecord;
 import com.checkdormitory.utils.HibernateUtil;
 import com.checkdormitory.utils.Page;
 import com.checkdormitory.utils.QueryProcessor;
@@ -20,7 +19,8 @@ import java.util.List;
 @Repository
 public class DataStatisticsDaoImpl implements DataStatisticsDao {
     public Page findLateReturnPage(String hql, int startRow, int pageSize, Object[] params) {
-        Query query = HibernateUtil.getSession().createQuery("select CR.studentNumber,count (*) from CheckResult as CR,StudentInfo as SI where CR.studentNumber=SI.stuNumber group by CR.studentNumber");
+        Query query = HibernateUtil.getSession().createQuery("select CR.date,count (*) from CheckResult as CR,StudentInfo as SI where CR.studentNumber=SI.stuNumber group by CR.date ");
+        ;
         List<Object[]> list = query.list();
         return getOnePage(hql, startRow, pageSize, params);
     }
@@ -30,8 +30,9 @@ public class DataStatisticsDaoImpl implements DataStatisticsDao {
         return getOnePage(hql, startRow, pageSize, params);
     }
 
-    public Page getCount(String countHql, int startRow, int pageSize, Object[] params) {
-        return getOnePage(countHql, startRow, pageSize, params);
+    public List<Object[]> getCount(String countHql) {
+        Query query = HibernateUtil.getSession().createQuery(countHql);
+        return query.list();
     }
 
     public void pinName(int student_id) {
@@ -40,6 +41,20 @@ public class DataStatisticsDaoImpl implements DataStatisticsDao {
         Transaction tran = session.beginTransaction();
         session.delete(checkResult);
         tran.commit();
+    }
+
+    public List<Object[]> getLineData(String countHql) {
+        Query query = HibernateUtil.getSession().createQuery(countHql);
+        List<Object[]> list = query.list();
+        HibernateUtil.closeSession();
+        return list;
+    }
+
+    public List<Object[]> getBarData(String countHql) {
+        Query query = HibernateUtil.getSession().createQuery(countHql);
+        List list = query.list();
+        HibernateUtil.closeSession();
+        return list;
     }
 
     private CheckResult load(int id) {

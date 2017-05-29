@@ -10,7 +10,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
 
-
     <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -39,48 +38,110 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
     <![endif]-->
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        checkbox {
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+    <script language="JavaScript">
+        function showClasses() {
+            var obj = document.getElementById("grade"); //定位id
+            var index = obj.selectedIndex; // 选中索引
+            var text = obj.options[index].text; // 选中文本
+            var value = obj.options[index].value;
+            var collegeSelect = document.getElementById("college");
+            index = collegeSelect.selectedIndex;
+            var collegeValue = collegeSelect.options[index].value;
+            $.ajax({
+                type: 'get',
+                url: '/CheckDormitory/power/classes/' + collegeValue + '/' + value,
+                contentType: 'application/json;charset=utf-8',
+                success: function (data) {
+                    var classes_html = '<div class="control-group">'
+                    + '<label class="control-label" for="workId">'
+                    + '班&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级</label>'
+                    + '<div class="controls">';
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i]);
+
+                        classes_html += '<input style="width: 16px;height: 16px" type="checkbox" id="selectedClasses" name="selectedClasses" value="'+data[i]+'"/>' + data[i]+'&nbsp;&nbsp;';
+                    }
+                    classes_html += '</div></div>';
+                    $('#classFieldset').html(classes_html);
+                },
+                error: function (data) {
+                    alert("error")
+                }
+            });
+        }
+        function showGrade() {
+            $('#college').removeAttr("onChange");
+            var html2 = '';
+            html2 += '<div class="control-group">'
+                + '<label class="control-label">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级</label>'
+                + '<div class="controls">'
+                + '<select class="input-medium " id="grade" name="grade" onchange="showClasses()">'
+                + '<option value="-1">---请选择年级---</option>'
+                + '<option value="1">大一</option>'
+                + '<option value="2">大二</option>'
+                + '<option value="3">大三</option>'
+                + '<option value="4">大四</option>'
+            ;
+            html2 += '</select></div></div>';
+            $('#power').append(html2);
+        };
+        function showNode() {
+            var options = "";
+            $.ajax({
+                type: 'get',
+                url: '/CheckDormitory/power/colleges',
+                contentType: 'application/json;charset=utf-8',
+                success: function (data) {
+                    $.each(data.college, function (n, jsonObject) {
+                        options += '<option value="' + jsonObject.value + '">' + jsonObject.text + '</option>';
+                    });
+                    showSelect();
+                },
+                error: function (data) {
+                    alert("error")
+                }
+            });
+
+            function showSelect() {
+                var obj = document.getElementById("type"); //定位id
+                var index = obj.selectedIndex; // 选中索引
+                var text = obj.options[index].text; // 选中文本
+                var html = "";
+                if (text == "辅导员") {
+                    html = '<legend style="font-size: medium" id="legend">管理的班级</legend>';
+                    html += '<div class="control-group">'
+                        + '<label class="control-label">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;院</label>'
+                        + '<div class="controls">'
+                        + '<select class="input-medium " id="college" name="college" onchange="showGrade()">'
+                        + '<option value="-1">---请选择学院---</option>'
+                        + options;
+                    html += '</select></div></div>';
+                    $('#power').html(html);
+                } else if (text == "宿舍管理员") {
+                    html = '<legend style="font-size: medium" id="legend">查寝范围</legend>';
+
+                    $('#power').html(html);
+                } else if (text == "系统管理员") {
+                    html = "";
+                    $('#power').html(html);
+                    $('#classFieldset').html(html);
+                }
+            }
+
+        }
+    </script>
 </head>
 
 <body>
-<script language="JavaScript">
-    function showNode() {
-        var obj = document.getElementById("type"); //定位id
-        var index = obj.selectedIndex; // 选中索引
-        var text = obj.options[index].text; // 选中文本
-        var html = "";
-        if (text == "辅导员") {
-            html='<legend style="font-size: medium" id="legend">管理的班级</legend>';
-            html+='<div class="control-group">'
-                 +'<label class="control-label">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;院</label>'
-                 +'<div class="controls">'
-                 +'<select class="input-medium " id="classes" name="classes">'
-                 +'<option value="-1">---请选择学院---</option>'
-                 +'<option value="1">计算机科学与技术</option>'
-                 ;
-            html+='</select></div></div>';
-            /*var html2='<div class="control-group">'
-                +'<label for="id_select">班&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级</label>'
-                +'<div class="controls">'
-                +'<select id="id_select" class="selectpicker bla bla bli" multiple data-live-search="true">'
-                +'<option>cow</option>'
-                +'<option>bull</option>'
-                +'<option>ASD</option>'
-                +'<option selected>Bla</option>'
-                +'<option>Ble</option>'
-                ;
-            html2+='</select></div></div>';*/
-            $('#power').html(html);
-        }else if (text == "宿舍管理员") {
-            html='<legend style="font-size: medium" id="legend">查寝范围</legend>';
 
-            $('#power').html(html);
-        }else if(text == "系统管理员"){
-            html="";
-            $('#power').html(html);
-        }
-    }
-</script>
 <%@ include file="/include/top.jsp" %>
 
 <div id="content">
@@ -175,6 +236,8 @@
                                                     </div>
                                                 </fieldset>
                                                 <fieldset id="power">
+                                                </fieldset>
+                                                <fieldset id="classFieldset">
                                                 </fieldset>
 
                                                 <br/>

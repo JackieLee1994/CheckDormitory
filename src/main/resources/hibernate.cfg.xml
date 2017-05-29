@@ -63,5 +63,7 @@
       <mapping class="com.checkdormitory.entity.Checker"/>
       <mapping class="com.checkdormitory.entity.CheckResult"/>
       <mapping class="com.checkdormitory.entity.CounselorManageClasses"/>
+      <mapping class="com.checkdormitory.entity.Classes"/>
+      <mapping class="com.checkdormitory.entity.College"/>
   </session-factory>
 </hibernate-configuration>

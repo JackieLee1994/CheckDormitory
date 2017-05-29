@@ -29,24 +29,21 @@ public class StudentsInfoController {
     private String checkResult(@RequestParam String result){
         if (result ==null)
             return "{\"code\":\"failure\"}";
-        JSONArray jsonArray= new JSONArray(result);
-        Iterator iterator = jsonArray.iterator();
+        String[] studentID = result.split("_");
         Date date = new Date();
         Long dateTime =date.getTime();
-        while (iterator.hasNext()){
-            JSONObject obj=(JSONObject)iterator.next();
-
+        for (int i=0;i<studentID.length;i++){
             CheckResult checkResult=new CheckResult();
-            checkResult.setStudentNumber(obj.getInt("student_ID"));
+            checkResult.setStudentNumber(Integer.parseInt(studentID[i]));
             SimpleDateFormat formatter;
             formatter = new SimpleDateFormat ("yyyy-MM-dd");
             String ctime = formatter.format(dateTime);
             checkResult.setDate(ctime);
-
             studentInfoService.saveCheckResult(checkResult);
             //更新晚未归次数
-            studentInfoService.updateLateReturnSum(obj.getInt("student_ID"));
+            studentInfoService.updateLateReturnSum(Integer.parseInt(studentID[i]));
         }
+
         return "{\"code\":\"success\"}";
     }
 
@@ -66,7 +63,6 @@ public class StudentsInfoController {
         for (Object obj:list){
             StudentInfo stu = (StudentInfo)obj;
             String dorm_ID = stu.getDormitoryNumber();
-
             JSONObject aMember = new JSONObject();
             aMember.put("name",stu.getName());
             aMember.put("student_ID",stu.getStuNumber());

@@ -18,7 +18,7 @@ public class StudentInfo {
     private String dormitoryBuilding;
     private String dormitoryNumber;
     private short bedNumber;
-    private Integer noComingSum;
+    private Long noComingSum;
 
     @Id
     @Column(name = "stu_number")
@@ -122,11 +122,11 @@ public class StudentInfo {
 
     @Basic
     @Column(name = "no_coming_sum")
-    public Integer getNoComingSum() {
+    public Long getNoComingSum() {
         return noComingSum;
     }
 
-    public void setNoComingSum(Integer noComingSum) {
+    public void setNoComingSum(Long noComingSum) {
         this.noComingSum = noComingSum;
     }
 

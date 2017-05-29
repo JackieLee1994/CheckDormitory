@@ -37,22 +37,22 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/dataStatistics/lineData/${sessionScope.workId}">
                 <i class="icon-signal"></i>
-                晚未归历史走势
+                历史走势
             </a>
         </li>
         <li>
             <a href="${pageContext.request.contextPath}/dataStatistics/history_record?workId=${sessionScope.workId}">
                 <i class="icon-th-list"></i>
-                晚未归历史记录
+                历史记录
             </a>
         </li>
 
         <li>
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/dataStatistics/barData/${sessionScope.workId}">
                 <i class="icon-thumbs-up"></i>
-                晚未归班级对比
+                班级对比
             </a>
         </li>
         <li><a href="${pageContext.request.contextPath}/user/PersonalCenter"> <i class="icon-user"></i> 个人中心

@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+<%--
+  Created by IntelliJ IDEA.
+  User: lwxzbh
+  Date: 2017/5/26
+  Time: 16:26
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <meta charset="utf-8"/>
-    <title>jQuery bootstrap-select</title>
-    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="bootstrap-select.js"></script>
-    <link rel="stylesheet" type="text/css" href="bootstrap-select.css">
-
+    <title>增加用户</title>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/test/bootstrap-select.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/test/bootstrap-select.css">
     <!-- 3.0 -->
-
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- 2.3.2
-      <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-
-
-   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.js"></script>
-      -->
 
     <script type="text/javascript">
         $(window).on('load', function () {
@@ -35,8 +31,6 @@
     <option>ASD</option>
     <option selected>Bla</option>
     <option>Ble</option>
-    <!--</optgroup>-->
 </select>
-
 </body>
 </html>

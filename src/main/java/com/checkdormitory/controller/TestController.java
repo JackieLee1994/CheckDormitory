@@ -1,6 +1,8 @@
 package com.checkdormitory.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.checkdormitory.entity.Person;
 import com.checkdormitory.entity.UserEntity2;
 import org.slf4j.Logger;
@@ -38,9 +40,18 @@ public class TestController {
     //@ResponseBody 表示返回的是json对象
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> addUser(@RequestBody Person person) {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("name",person.getUsername());
+    public Map<String, Object> addUser(@RequestBody Person person) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("value","1");
+        jsonObject.put("text","计算机");
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("value","1");
+        jsonObject1.put("text","法学院");
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.add(jsonObject);
+        jsonArray.add(jsonObject1);
+        map.put("jsonArray",jsonArray);
         System.out.println(person.getUsername());
         System.out.println(person.getPassword());
         return map;

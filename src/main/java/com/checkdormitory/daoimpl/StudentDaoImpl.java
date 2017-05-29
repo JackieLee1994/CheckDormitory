@@ -83,11 +83,11 @@ public class StudentDaoImpl implements StudentDao {
         HibernateUtil.closeSession();
         if (studentInfo !=null){
             String hql = "update StudentInfo s set s.noComingSum=? where s.stuNumber=?";
-            int lateReturnSum = studentInfo.getNoComingSum();
+            Long lateReturnSum = studentInfo.getNoComingSum();
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
             Query query1 = session.createQuery(hql);
-            query1.setInteger(0,lateReturnSum+1);
+            query1.setLong(0,lateReturnSum+1);
             query1.setInteger(1,student_id);
             query1.executeUpdate();
             transaction.commit();

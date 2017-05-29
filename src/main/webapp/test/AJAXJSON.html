@@ -21,8 +21,6 @@
                         alert(data.userType);
                 }
             });
-
-
         }
 
         function PostForm() {
@@ -33,29 +31,18 @@
                 contentType:'application/json;charset=utf-8',
                 data : '{"username":"李文祥","password":"psw001"}',
                 success : function(data) {
-                    alert(data.name);
+                    for (var i in data) {
+                        var jsonObj =data[i];
+                        for (var j = 0; j < jsonObj.length; j++) {
+                            alert(jsonObj[j].text);
+                        }
+                    }
                 },
                 error : function(data) {
                     alert("error")
                 }
             });
         }
-        /*$('#submit').click(function () {
-            $.ajax( {
-                type : 'post',
-                url : '/CheckDormitory/add',
-                contentType:'application/json;charset=utf-8',
-                data : $('#form').serialize(),
-                success : function(data) {
-                    alert("新增成功！");
-                    alert(data.name);
-                },
-                error : function(data) {
-                    alert("error")
-                }
-            });
-        });*/
-
     </script>
 </head>
 <body>
