@@ -40,12 +40,6 @@
     <![endif]-->
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <style>
-        checkbox {
-            width: 18px;
-            height: 18px;
-        }
-    </style>
     <script language="JavaScript">
         function showClasses() {
             var obj = document.getElementById("grade"); //定位id

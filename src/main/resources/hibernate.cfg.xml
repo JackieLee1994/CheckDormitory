@@ -1,69 +1,74 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
-    "-//Hibernate/Hibernate Configuration DTD//EN"
-    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd"
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd"
         >
 <hibernate-configuration>
-  <session-factory>
-      <!--配置数据库的驱动程序，Hibernate在连接数据库时，需要用到数据库的驱动程序com.mysql.jdbc.Driver-->
-      <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-      <property name="hibernate.connection.url">jdbc:mysql://120.27.44.116:3306/CheckDormitory</property>
-      <!--连接数据库是用户名-->
-      <property name="connection.username">root</property>
-      <!--连接数据库是密码-->
-      <property name="connection.password">root</property>
+    <session-factory>
+        <!--配置数据库的驱动程序，Hibernate在连接数据库时，需要用到数据库的驱动程序com.mysql.jdbc.Driver-->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!--##jdbc:mysql://localhost:3306/test?user=root&amp;password=&amp;useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly-->
+        <!--?useUnicode=true&amp;characterEncoding=UTF8 这句一定得加上，否则使用c3p0时中文当乱码处理，XML中&amp时&的转义-->
+        <property name="hibernate.connection.url">
+            jdbc:mysql://120.27.44.116:3306/CheckDormitory?useUnicode=true&amp;characterEncoding=UTF8</property>
+        <!--连接数据库是用户名-->
+        <property name="connection.username">root</property>
+        <!--连接数据库是密码-->
+        <property name="connection.password">root</property>
+
+        <!--c3p0连接池-->
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider
+        </property>
+
+        <!-- 最大连接数 -->
+        <property name="hibernate.c3p0.max_size">20</property>
+        <!-- 最小连接数 -->
+        <property name="hibernate.c3p0.min_size">5</property>
+        <!-- 获得连接的超时时间,如果超过这个时间,会抛出异常，单位毫秒 -->
+        <property name="hibernate.c3p0.timeout">120</property>
+        <!-- 最大的PreparedStatement的数量 100-->
+        <property name="hibernate.c3p0.max_statements">500</property>
+        <!-- 每隔120秒检查连接池里的空闲连接 ，单位是秒-->
+        <property name="hibernate.c3p0.idle_test_period">120</property>
+        <!-- 当连接池里面的连接用完的时候，C3P0一下获取的新的连接数 2-->
+        <property name="hibernate.c3p0.acquire_increment">5</property>
+        <!-- 每次都验证连接是否可用 -->
+        <property name="hibernate.c3p0.validate">true</property>
+        <!--每*秒检查所有连接池中的空闲连接。Default: 0 -->
+        <property name="c3p0.idleConnectionTestPeriod ">18000</property>
+        <!--最大空闲时间,*秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+        <property name="c3p0.maxIdleTime">25000</property>
+        <!--是否在后台显示Hibernate用到的SQL语句，开发时设置为true-->
+        <property name="hibernate.show_sql">true</property>
+
+       <!-- &lt;!&ndash;数据库连接池的大小&ndash;&gt;
+        <property name="hibernate.connection.pool.size">20</property>
+        &lt;!&ndash;是否在后台显示Hibernate用到的SQL语句，开发时设置为true&ndash;&gt;
+        <property name="hibernate.show_sql">true</property>
+        &lt;!&ndash;jdbc.fetch_size是指Hibernate每次从数据库中取出并放到JDBC的Statement中的记录条数。
+        Fetch Size设的越大，读数据库的次数越少，速度越快，Fetch Size越小，读数据库的次数越多，速度越慢&ndash;&gt;
+        <property name="jdbc.fetch_size">50</property>
+        &lt;!&ndash;jdbc.batch_size是指Hibernate批量插入,删除和更新时每次操作的记录数。Batch Size越大，批量操作的向数据库发送Sql的次数越少，速度就越快，同样耗用内存就越大&ndash;&gt;
+        <property name="jdbc.batch_size">23</property>
+        &lt;!&ndash;jdbc.use_scrollable_resultset是否允许Hibernate用JDBC的可滚动的结果集。对分页的结果集。对分页时的设置非常有帮助&ndash;&gt;
+        <property name="jdbc.use_scrollable_resultset">false</property>
+        &lt;!&ndash;connection.useUnicode连接数据库时是否使用Unicode编码&ndash;&gt;
+        <property name="Connection.useUnicode">true</property>
+        &lt;!&ndash;connection.characterEncoding连接数据库时数据的传输字符集编码方式，最好设置为gbk，用gb2312有的字符不全&ndash;&gt;
+        <property name="connection.characterEncoding">gbk</property>
+        &lt;!&ndash;hibernate.dialect 只是Hibernate使用的数据库方言,就是要用Hibernate连接那种类型的数据库服务器。&ndash;&gt;
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>-->
 
 
-      <!--C3P0配置 -->
-      <!--<property name="hibernate.connection.provider_class">
-          org.hibernate.connection.C3P0ConnectionProvider</property>
-      <property name="hibernate.c3p0.max_size">20</property>
-      <property name="hibernate.c3p0.min_size">5</property>
-      <property name="hibernate.c3p0.timeout">120</property>
-      <property name="automaticTestTable">Test</property>
-      <property name="hibernate.c3p0.max_statements">100</property>
-      <property name="hibernate.c3p0.idle_test_period">120</property>
-      <property name="hibernate.c3p0.acquire_increment">1</property>
-      <property name="c3p0.testConnectionOnCheckout">true</property>
-      <property name="c3p0.idleConnectionTestPeriod">18000</property>
-      <property name="c3p0.maxIdleTime">25000</property>
-      <property name="c3p0.idle_test_period">120</property>
-      <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-      <property name="hibernate.show_sql">true</property>
-
-      <property name="jdbc.batch_size">23</property>
-      <property name="jdbc.fetch_size">50</property>-->
-
-
-      <!--数据库连接池的大小-->
-      <property name="hibernate.connection.pool.size">20</property>
-      <!--是否在后台显示Hibernate用到的SQL语句，开发时设置为true，
-      便于差错，程序运行时可以在Eclipse的控制台显示Hibernate的执行Sql语句。项目部署后可以设置为false，提高运行效率-->
-      <property name="hibernate.show_sql">true</property>
-      <!--jdbc.fetch_size是指Hibernate每次从数据库中取出并放到JDBC的Statement中的记录条数。
-      Fetch Size设的越大，读数据库的次数越少，速度越快，Fetch Size越小，读数据库的次数越多，速度越慢-->
-      <property name="jdbc.fetch_size">50</property>
-      <!--jdbc.batch_size是指Hibernate批量插入,删除和更新时每次操作的记录数。Batch Size越大，批量操作的向数据库发送Sql的次数越少，速度就越快，同样耗用内存就越大-->
-      <property name="jdbc.batch_size">23</property>
-      <!--jdbc.use_scrollable_resultset是否允许Hibernate用JDBC的可滚动的结果集。对分页的结果集。对分页时的设置非常有帮助-->
-      <property name="jdbc.use_scrollable_resultset">false</property>
-      <!--connection.useUnicode连接数据库时是否使用Unicode编码-->
-      <property name="Connection.useUnicode">true</property>
-      <!--connection.characterEncoding连接数据库时数据的传输字符集编码方式，最好设置为gbk，用gb2312有的字符不全-->
-      <property name="connection.characterEncoding">gbk</property>
-
-      <!--hibernate.dialect 只是Hibernate使用的数据库方言,就是要用Hibernate连接那种类型的数据库服务器。-->
-      <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-
-      <!--指定映射文件为“hibernate/ch1/UserInfo.hbm.xml”-->
-      <mapping class="com.checkdormitory.entity.UserEntity2"/>
-      <mapping class="com.checkdormitory.entity.StudentInfo"/>
-      <mapping class="com.checkdormitory.entity.User"/>
-      <mapping class="com.checkdormitory.entity.UserType"/>
-      <mapping class="com.checkdormitory.entity.Checker"/>
-      <mapping class="com.checkdormitory.entity.CheckResult"/>
-      <mapping class="com.checkdormitory.entity.CounselorManageClasses"/>
-      <mapping class="com.checkdormitory.entity.Classes"/>
-      <mapping class="com.checkdormitory.entity.College"/>
-  </session-factory>
+        <!--指定映射文件为“hibernate/ch1/UserInfo.hbm.xml”-->
+        <mapping class="com.checkdormitory.entity.UserEntity2"/>
+        <mapping class="com.checkdormitory.entity.StudentInfo"/>
+        <mapping class="com.checkdormitory.entity.User"/>
+        <mapping class="com.checkdormitory.entity.UserType"/>
+        <mapping class="com.checkdormitory.entity.Checker"/>
+        <mapping class="com.checkdormitory.entity.CheckResult"/>
+        <mapping class="com.checkdormitory.entity.CounselorManageClasses"/>
+        <mapping class="com.checkdormitory.entity.Classes"/>
+        <mapping class="com.checkdormitory.entity.College"/>
+    </session-factory>
 </hibernate-configuration>

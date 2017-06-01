@@ -11,7 +11,7 @@
         </div>
         <!-- /account-avatar -->
 
-        <div class="account-details" >
+        <div class="account-details">
 
             <span class="account-name">${sessionScope.username }</span>
             <c:if test="${sessionScope.type==1}">
@@ -23,10 +23,10 @@
             <c:if test="${sessionScope.type==3}">
                 <span class="account-role">宿舍管理员</span>
             </c:if>
-           <%-- <span class="account-actions">
-                <a href="javascript:;">个人中心</a>
-				<a href="javascript:;">系统设置</a>
-			</span>--%>
+            <%-- <span class="account-actions">
+                 <a href="javascript:;">个人中心</a>
+                 <a href="javascript:;">系统设置</a>
+             </span>--%>
 
         </div>
         <!-- /account-details -->
@@ -54,6 +54,24 @@
         <li><a href="${pageContext.request.contextPath}/repairtask/adminlist"> <i class="icon-signal"></i> 维修管理
         </a></li>
 --%>
+        <li>
+            <a href="${pageContext.request.contextPath}/dataAdmin/lateReturnList">
+                <i class="icon-th-list"></i>
+                最新晚未归名单
+            </a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/dataAdmin/lineData">
+                <i class="icon-signal"></i>
+                历史走势
+            </a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/dataAdmin/barData">
+                <i class="icon-thumbs-up"></i>
+                班级对比
+            </a>
+        </li>
         <li><a href="${pageContext.request.contextPath}/user/PersonalCenter"> <i class="icon-user"></i> 个人中心
         </a></li>
 

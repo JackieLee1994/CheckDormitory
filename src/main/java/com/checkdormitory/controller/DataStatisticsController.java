@@ -24,9 +24,10 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/dataStatistics")
 public class DataStatisticsController {
-
+    public static List<StudentInfo> listInfo = new ArrayList<StudentInfo>();
     @Resource
     private DataStatisticsService dataStatisticsService;
+
 
     @RequestMapping(value = "/lateReturnList")
     private ModelAndView lateReturnList(HttpServletRequest request, HttpServletResponse response,
@@ -36,6 +37,8 @@ public class DataStatisticsController {
         response.setCharacterEncoding("UTF-8");
         session.setAttribute("workId", workId);
         System.out.println("lateReturnList被调用");
+        //清除原来的数据
+        listInfo.clear();
 
         //获取辅导员管理的班级
         Map<String, Object> classesMap = getClassesOfCounselor(workId);
@@ -71,6 +74,7 @@ public class DataStatisticsController {
                     studentInfo.setNoComingSum(countMap.get(studentID));
                 }
                 Record Record = new Record(checkResult, studentInfo);
+                listInfo.add(studentInfo);//该数据用于导出Excel
                 l.add(Record);
             }
         }

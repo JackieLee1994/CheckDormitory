@@ -39,7 +39,7 @@
     <link rel="Shortcut Icon" href="/img/headshot.png" type="image/x-icon">
     <script>
         function exportExcel() {
-            window.location.href = "${pageContext.request.contextPath}/ExportExcel/ajaxExport"
+            window.location.href = "${pageContext.request.contextPath}/ExportExcel/admin"
         }
     </script>
 </head>
@@ -48,7 +48,7 @@
 <div id="content">
     <div class="container">
         <div class="row">
-            <%@include file="/include/left_counselor.jsp" %>
+            <%@include file="/include/left_admin.jsp" %>
 
             <div class="span9">
                 <div class="widget widget-table">
@@ -93,7 +93,7 @@
                                         <td align="right">${l.studentInfo.noComingSum}</td>
                                         <!-- 操作 -->
                                         <td>
-                                            <a href="${pageContext.request.contextPath}/dataStatistics/student/${l.checkResult.id}/delete/${sessionScope.workId}">销名</a>
+                                            <a href="${pageContext.request.contextPath}/dataAdmin/${l.checkResult.id}/delete">销名</a>
                                             <script>
                                                 function sendMSG() {
                                                     $.ajax( {

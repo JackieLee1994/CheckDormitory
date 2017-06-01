@@ -32,7 +32,10 @@ public class DataStatisticsDaoImpl implements DataStatisticsDao {
 
     public List<Object[]> getCount(String countHql) {
         Query query = HibernateUtil.getSession().createQuery(countHql);
-        return query.list();
+        List list = query.list();
+        HibernateUtil.closeSession();
+        /*select CR.studentNumber,count (*) from CheckResult as CR,StudentInfo as SI where CR.studentNumber=SI.stuNumber  and SI.clazz in('医影1302','软件1302','计科卓越1301','足球1402') group by CR.studentNumber order by SI.stuNumber*/
+        return list;
     }
 
     public void pinName(int student_id) {
