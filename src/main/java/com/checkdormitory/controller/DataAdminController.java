@@ -79,7 +79,11 @@ public class DataAdminController {
     }
     @RequestMapping(value = "/barData")
     private ModelAndView classCompare(){
-        String hql = "select SI.clazz,count (*) as c from CheckResult as CR,StudentInfo as SI where CR.studentNumber=SI.stuNumber group by SI.clazz order by c desc";
+        //查询最新日期
+        String latestDate = dataStatisticsService.getLatestDate(
+                "select MAX(model.date) from CheckResult as model");
+
+        String hql = "select SI.clazz,count (*) as c from CheckResult as CR,StudentInfo as SI where CR.studentNumber=SI.stuNumber and CR.date='"+latestDate+"' group by SI.clazz order by c desc";
         List<Object[]> list = dataStatisticsService.getBarData(hql);
         List<Long> data = new ArrayList<Long>();
         List<String> labels = new ArrayList<String>();
@@ -101,6 +105,7 @@ public class DataAdminController {
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("data",data);
         map.put("labels",labels);
+        map.put("date",latestDate);
         return new ModelAndView("admin/bar_chart",map);
     }
     @RequestMapping(value = "/lineData")

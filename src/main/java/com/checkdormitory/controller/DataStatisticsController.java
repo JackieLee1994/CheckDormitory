@@ -180,10 +180,13 @@ public class DataStatisticsController {
     public ModelAndView barData(@PathVariable String workId) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("counselor/bar_chart");
+        //查询最新日期
+        String latestDate = dataStatisticsService.getLatestDate(
+                "select MAX(model.date) from CheckResult as model");
         //获取辅导员管理的班级
         Map<String, Object> classesMap = getClassesOfCounselor(workId);
         String mediumHql = getHqlOfLimitOfClasses(classesMap);
-        String countHql = "select SI.clazz,count (*) as c from CheckResult as CR,StudentInfo as SI where CR.studentNumber=SI.stuNumber " + mediumHql + " group by SI.clazz order by c desc";
+        String countHql = "select SI.clazz,count (*) as c from CheckResult as CR,StudentInfo as SI where CR.studentNumber=SI.stuNumber " + mediumHql + " and CR.date='"+latestDate+"' group by SI.clazz order by c desc";
         List<Object[]> list = dataStatisticsService.getBarData(countHql);
         List<Long> data = new ArrayList<Long>();
         List<String> labels = new ArrayList<String>();
@@ -194,6 +197,7 @@ public class DataStatisticsController {
         }
         mv.addObject("data", data);
         mv.addObject("labels",labels);
+        mv.addObject("date",latestDate);
         return mv;
     }
 

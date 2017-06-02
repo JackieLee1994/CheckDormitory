@@ -61,7 +61,7 @@
                     for (var i = 0; i < data.length; i++) {
                         console.log(data[i]);
 
-                        classes_html += '<input style="width: 16px;height: 16px" type="checkbox" id="selectedClasses" name="selectedClasses" value="'+data[i]+'"/>' + data[i]+'&nbsp;&nbsp;';
+                        classes_html += '<input style="width: 16px;height: 16px" type="checkbox" id="selectedClasses" name="classes[]" value="'+data[i]+'"/>' + data[i]+'&nbsp;&nbsp;';
                     }
                     classes_html += '</div></div>';
                     $('#classFieldset').html(classes_html);
@@ -88,6 +88,17 @@
             $('#power').append(html2);
         };
         function showNode() {
+            var obj = document.getElementById("type"); //定位id
+            var index = obj.selectedIndex; // 选中索引
+            var text = obj.options[index].text; // 选中文本
+            //改变action
+            if (text == "辅导员"){
+                document.getElementById("edit-profile").action="${pageContext.request.contextPath}/user/addCounselor";
+            }else if (text =="宿舍管理员"){
+                document.getElementById("edit-profile").action="${pageContext.request.contextPath}/user/addHouseparent";
+            }else{
+                document.getElementById("edit-profile").action="${pageContext.request.contextPath}/user/add";
+            }
             var options = "";
             $.ajax({
                 type: 'get',
@@ -105,9 +116,7 @@
             });
 
             function showSelect() {
-                var obj = document.getElementById("type"); //定位id
-                var index = obj.selectedIndex; // 选中索引
-                var text = obj.options[index].text; // 选中文本
+
                 var html = "";
                 if (text == "辅导员") {
                     html = '<legend style="font-size: medium" id="legend">管理的班级</legend>';
@@ -130,6 +139,11 @@
                 }
             }
 
+        }
+    </script>
+    <script>
+        function changeAction() {
+            document.getElementById("edit-profile").action="${pageContext.request.contextPath}/user/add";
         }
     </script>
 </head>

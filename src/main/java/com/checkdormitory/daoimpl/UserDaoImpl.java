@@ -1,6 +1,7 @@
 package com.checkdormitory.daoimpl;
 
 import com.checkdormitory.dao.UserDao;
+import com.checkdormitory.entity.CounselorManageClasses;
 import com.checkdormitory.entity.User;
 import com.checkdormitory.utils.HibernateUtil;
 import com.checkdormitory.utils.Page;
@@ -19,7 +20,7 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     public User find(String username, String password) {
         Session session = HibernateUtil.getSession();
-        System.out.println("UserDaoImpl-->"+username + " " + password);
+        System.out.println("UserDaoImpl-->" + username + " " + password);
         Query query =
                 session.createQuery("from  User  where workId=? and password=?")
                         .setString(0, username)
@@ -29,11 +30,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User findByWorkId(String workId, String password) {
-        Session session=HibernateUtil.getSession();
+        Session session = HibernateUtil.getSession();
         Query query = session.createQuery("from User where workId=? and password=?")
-                .setString(0,workId)
-                .setString(1,password);
-        User user = (User)query.uniqueResult();
+                .setString(0, workId)
+                .setString(1, password);
+        User user = (User) query.uniqueResult();
         return user;
     }
 
@@ -81,7 +82,7 @@ public class UserDaoImpl implements UserDao {
 
     public User load(int id) {
 
-        return (User) HibernateUtil.getSession().load(User.class, (long)id);
+        return (User) HibernateUtil.getSession().load(User.class, (long) id);
     }
 
     public Page findPageByHQL_Sqltotal(String queryString, int startRow, int pageSize, Object[] params) {
@@ -111,7 +112,7 @@ public class UserDaoImpl implements UserDao {
         String hql = "select count(*) "
                 + QueryProcessor.removeFetchs(
                 QueryProcessor.removeSelect(QueryProcessor.removeOrders(queryString)));
-        System.out.println("getTotal:"+hql);
+        System.out.println("getTotal:" + hql);
         Query query = HibernateUtil.getSession().createQuery(hql);
         if (params != null && params.length > 0) {
             for (int i = 0; i < params.length; i++) {
@@ -129,5 +130,35 @@ public class UserDaoImpl implements UserDao {
 
     public int getTotalBySQL(String queryString, Object[] params) {
         return 0;
+    }
+
+    public void addScope(String workId, String[] classes) {
+        CounselorManageClasses counselorManageClasses = new CounselorManageClasses();
+        counselorManageClasses.setId(Long.parseLong(workId));
+        String str = "";
+        for (int i = 0; i < classes.length; i++) {
+            if (i == 0)
+                str += classes[i];
+            else
+                str += "," + classes[i];
+        }
+        counselorManageClasses.setClasses(str);
+        Session session = HibernateUtil.getSession();
+        Transaction tran = session.beginTransaction();//开始事物
+        session.save(counselorManageClasses);//执行
+        tran.commit();//提交
+        HibernateUtil.closeSession();
+        modifyClassesStatus(classes);
+    }
+
+    private void modifyClassesStatus(String[] classes) {
+        for (int i = 0; i < classes.length; i++) {
+            Session session = HibernateUtil.getSession();
+            Transaction tran = session.beginTransaction();//开始事物
+            session.createQuery("update Classes as c set c.distributed=1 where c.className='" + classes[i]+"'").executeUpdate();
+            tran.commit();
+            HibernateUtil.closeSession();
+        }
+
     }
 }

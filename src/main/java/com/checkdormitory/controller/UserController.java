@@ -4,6 +4,7 @@ import com.checkdormitory.entity.Person;
 import com.checkdormitory.entity.User;
 import com.checkdormitory.entity.UserEntity2;
 import com.checkdormitory.service.UserService;
+import com.checkdormitory.utils.CharacterEncode;
 import com.checkdormitory.utils.HttpUtil;
 import com.checkdormitory.utils.Page;
 import com.checkdormitory.utils.Pagination;
@@ -42,7 +43,22 @@ public class UserController {
         return new ModelAndView("admin/useradd");
     }
 
+    @RequestMapping(value = "/user/addCounselor")
+    private String addAdmin(User user,@RequestParam(value = "classes[]",required = false/*解决400*/) String[] classes)throws Exception{
+        user.setUsername(CharacterEncode.toUTF8(user.getUsername()));
+        userService.add(user);
+        for (int i=0;i<classes.length;i++){
+            classes[i] = CharacterEncode.toUTF8(classes[i]);
+        }
+        userService.addScope(user.getWorkId(),classes);
+        return "redirect:/user/list";
+    }
 
+    @RequestMapping(value = "/user/addHouseparent")
+    private String addHouseparent(User user/*,@RequestParam(value = "levels[]")String levels*/){
+
+        return "redirect:/user/list";
+    }
     @RequestMapping(value = "/user/add",method = RequestMethod.POST)
     protected String add(User user, HttpServletRequest req, HttpServletResponse res) throws Exception {
         req.setCharacterEncoding("UTF-8");

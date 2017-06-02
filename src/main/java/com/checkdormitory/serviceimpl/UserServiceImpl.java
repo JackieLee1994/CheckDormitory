@@ -70,4 +70,8 @@ public class UserServiceImpl implements UserService {
     public User load(int id) {
         return userDao.load(id);
     }
+
+    public void addScope(String workId, String[] classes) {
+        userDao.addScope(workId,classes);
+    }
 }

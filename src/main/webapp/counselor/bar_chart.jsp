@@ -75,7 +75,7 @@
                 <div class="widget widget-table">
                     <div class="widget-header">
                         <i class="icon-th-list"></i>
-                        <h3>班级对比</h3>
+                        <h3>班级对比（${date}）</h3>
                     </div>
                     <div class="widget-content">
                         <canvas  id="myChart" width="830" height="450"></canvas>

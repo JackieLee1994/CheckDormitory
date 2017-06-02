@@ -38,4 +38,5 @@ public interface UserDao {
 
     int getTotalBySQL(String queryString, Object[] params);
 
+    void addScope(String workId, String[] classes);
 }

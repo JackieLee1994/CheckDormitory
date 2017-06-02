@@ -32,4 +32,6 @@ public interface UserService {
     void delete(int id);
 
     User load(int id);
+
+    void addScope(String workId, String[] classes);
 }
